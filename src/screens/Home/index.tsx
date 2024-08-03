@@ -1,105 +1,140 @@
-import {SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
-import {CardHeader} from "./Components";
-import {COLORS, fontsApp} from "@src/theme";
-import {Header} from "@src/components/Layouts";
 import {Gap, TextCustom} from "@src/components/Atoms";
-import Icon, {Icons} from "@src/components/Atoms/Icon";
+import {Header} from "@src/components/Layouts";
 import {CardItem} from "@src/components/Moleculs";
+import {
+  actionHomeNowPlaying,
+  actionHomePopuler,
+} from "@src/libraries/home/home.function";
+import {StackProps} from "@src/navigation/types";
 
-const HomeScreen: React.FC = ({navigation}: any): JSX.Element => {
+import {COLORS, fontsApp} from "@src/theme";
+import {
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
+
+const HomeScreen = ({navigation}: StackProps): JSX.Element => {
+  const {data} = actionHomeNowPlaying();
+  const {data: moviesPopuler} = actionHomePopuler();
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.primary}}>
-      <View
-        style={{
-          paddingHorizontal: 15,
-          paddingVertical: 15,
-        }}
-      >
-        <CardHeader />
-      </View>
-      <View style={{marginBottom: 20}}>
-        <Header />
+    <SafeAreaView style={{flex: 1}}>
+      <Header />
+
+      <Gap height={20} />
+      <ScrollView>
+        <View style={styles.containerTitle}>
+          <TextCustom
+            value={"Now Showing"}
+            fontSize={16}
+            fontWeight={fontsApp.semiBold}
+          />
+          <Pressable
+            style={{
+              paddingVertical: 8,
+              paddingHorizontal: 16,
+              borderRadius: 100,
+              borderWidth: 1,
+              borderColor: COLORS.border,
+            }}
+          >
+            <TextCustom
+              fontSize={10}
+              value={"Show more"}
+              color={COLORS.textGray}
+            />
+          </Pressable>
+        </View>
+
+        <View style={{marginTop: 16}}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 10,
+                paddingHorizontal: 10,
+              }}
+            >
+              {data?.results
+                ?.slice(0, 10)
+                .map((data: INowPlaying, idx: number) => (
+                  <CardItem
+                    type="cardShowing"
+                    key={idx.toString()}
+                    onPress={() =>
+                      navigation?.navigate("DetailMovieScreen", {
+                        id: String(data?.id),
+                      })
+                    }
+                    dataNowPlaying={data}
+                  />
+                ))}
+            </View>
+          </ScrollView>
+        </View>
+
+        <View style={[styles.containerTitle, {marginTop: 25}]}>
+          <TextCustom
+            value={"Popular"}
+            fontSize={16}
+            fontWeight={fontsApp.semiBold}
+          />
+          <Pressable
+            style={{
+              paddingVertical: 8,
+              paddingHorizontal: 16,
+              borderRadius: 100,
+              borderWidth: 1,
+              borderColor: COLORS.border,
+            }}
+          >
+            <TextCustom
+              fontSize={10}
+              value={"See more"}
+              color={COLORS.textGray}
+            />
+          </Pressable>
+        </View>
 
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            columnGap: 15,
-            paddingHorizontal: 15,
+            paddingHorizontal: 10,
+            marginTop: 10,
+            gap: 10,
+            marginBottom: 10,
           }}
         >
-          <View
-            style={{
-              padding: 10,
-              backgroundColor: COLORS.white,
-              borderRadius: 10,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginTop: 15,
-              flex: 1,
-            }}
-          >
-            <View>
-              <TextCustom
-                value={"Jakarta Timur, Indonesia"}
-                fontWeight={fontsApp.medium}
-                fontSize={16}
+          {moviesPopuler?.results
+            ?.slice(0, 20)
+            .reverse()
+            .map((data: INowPlaying, index: number) => (
+              <CardItem
+                key={"movies_populer" + index.toString()}
+                type="cardPopuler"
+                dataPopuler={data}
+                onPress={() =>
+                  navigation?.navigate("DetailMovieScreen", {
+                    id: String(data?.id),
+                  })
+                }
               />
-              <TextCustom
-                value={"21 Jul-22 Jul | Dewasa"}
-                fontWeight={fontsApp.medium}
-                fontSize={16}
-              />
-            </View>
-            <Icon type={Icons.Ionicons} name="search" size={34} />
-          </View>
-
-          <View>
-            <Icon
-              color={COLORS.white}
-              type={Icons.Ionicons}
-              name="location-outline"
-              size={28}
-            />
-            <TextCustom fontSize={16} value={"Peta"} color={COLORS.white} />
-          </View>
+            ))}
         </View>
-        <Gap height={20} />
-
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              columnGap: 10,
-              paddingHorizontal: 15,
-            }}
-          ></View>
-        </ScrollView>
-      </View>
-
-      <View
-        style={{
-          height: 300,
-          backgroundColor: COLORS.whiteShome,
-          flex: 1,
-          borderTopRightRadius: 15,
-          borderTopLeftRadius: 15,
-          paddingHorizontal: 15,
-          paddingVertical: 15,
-        }}
-      >
-        <CardItem />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  selectStyle: {
-    fontFamily: fontsApp.semiBold,
+  containerTitle: {
+    paddingHorizontal: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
 

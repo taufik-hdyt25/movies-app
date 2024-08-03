@@ -1,24 +1,17 @@
-// types.ts (continuation)
-import {StackNavigationProp} from "@react-navigation/stack";
+import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   HomeScreen: undefined;
-  SnackbarsScreens: undefined;
+  DetailMovieScreen: {id?: string};
 };
 
-type SnackbarsScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "SnackbarsScreens"
->;
-type HomeScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "HomeScreen"
->;
-
-export type HomeScreenProps = {
-  navigation: HomeScreenNavigationProp;
+export type RootTabParamList = {
+  Home: undefined;
+  Movies: undefined;
+  Favorite: undefined;
 };
 
-export type SnackbarsScreenProps = {
-  navigation: SnackbarsScreenNavigationProp;
-};
+export type StackProps = NativeStackScreenProps<RootStackParamList>;
+
+export type TabProps = BottomTabScreenProps<RootTabParamList>;

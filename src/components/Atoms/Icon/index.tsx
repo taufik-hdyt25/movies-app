@@ -35,7 +35,7 @@ export const Icons = {
 
 type Props = {
   type: any;
-  name: string;
+  name: string | undefined;
   color?: string;
   size?: number;
   onPress?: () => void;

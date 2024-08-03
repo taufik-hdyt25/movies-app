@@ -40,14 +40,18 @@ export const fontsApp = {
 
 export const COLORS = {
   primary: "#2246FF",
-  textPrimary: "#0F294D",
+  textPrimary: "#000",
   gray: "#ABABAB",
   activeColor: "#2246FF",
   inActiveColor: "#ababab",
   white: "#FFF",
   whiteShome: "#F0F1FF",
   btn: "#3364FF",
-  orange: "#FEB404",
+  orange: "#FFC319",
+  border: "#E5E4EA",
+  textGray: "#AAA9B1",
+  bgBadge: "#DBE3FF",
+  textBadge: "#88A4E8",
 };
 
 export const SIZES = {

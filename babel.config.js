@@ -9,6 +9,7 @@ module.exports = {
         },
       },
     ],
+    "module:react-native-dotenv",
     /**
      * Your other plugins
      */

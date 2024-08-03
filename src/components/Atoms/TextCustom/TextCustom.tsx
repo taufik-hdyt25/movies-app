@@ -4,7 +4,7 @@ import {sized} from "@src/utils/Sizes";
 import {Text, TextProps, TextStyle} from "react-native";
 
 interface Props extends TextProps {
-  value: string | number;
+  value: string | number | undefined;
   style?: TextStyle;
   fontSize?: number | undefined;
   fontWeight?: string;
