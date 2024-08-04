@@ -35,7 +35,6 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
         }
       />
 
-      <Gap height={20} />
       <ScrollView>
         <View style={styles.containerTitle}>
           <TextCustom
@@ -43,6 +42,7 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
             fontSize={16}
             fontWeight={fontsApp.semiBold}
             color={COLORS.textPrimary}
+            style={{marginTop: 15}}
           />
         </View>
 
