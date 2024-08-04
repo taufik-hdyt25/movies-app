@@ -1,9 +1,19 @@
 import {TextCustom} from "@src/components/Atoms";
 import Icon, {Icons} from "@src/components/Atoms/Icon";
 import {COLORS, fontsApp} from "@src/theme";
+import {ReactNode} from "react";
 import {View} from "react-native";
 
-const Header: React.FC = (): JSX.Element => {
+interface IHeaderProps {
+  screenTitile?: string;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+}
+const Header: React.FC<IHeaderProps> = ({
+  screenTitile,
+  leftIcon,
+  rightIcon,
+}): JSX.Element => {
   return (
     <View
       style={{
@@ -14,17 +24,13 @@ const Header: React.FC = (): JSX.Element => {
         backgroundColor: COLORS.white,
       }}
     >
-      <Icon
-        name="microsoft-xbox-controller-menu"
-        type={Icons.MaterialCommunityIcons}
-        size={28}
-      />
+      {leftIcon}
       <TextCustom
-        value={"FilmKu"}
+        value={screenTitile}
         fontSize={18}
         fontWeight={fontsApp.semiBold}
       />
-      <Icon name="search" type={Icons.Ionicons} size={28} />
+      {rightIcon}
     </View>
   );
 };

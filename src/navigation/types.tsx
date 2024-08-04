@@ -4,6 +4,8 @@ import {NativeStackScreenProps} from "@react-navigation/native-stack";
 export type RootStackParamList = {
   HomeScreen: undefined;
   DetailMovieScreen: {id?: string};
+  SearchMovieScreen: undefined;
+  ErrorScreen: undefined;
 };
 
 export type RootTabParamList = {

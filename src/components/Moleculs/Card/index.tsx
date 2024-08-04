@@ -1,8 +1,8 @@
 import {TextCustom} from "@src/components/Atoms";
 import Icon, {Icons} from "@src/components/Atoms/Icon";
 import {COLORS, fontsApp} from "@src/theme";
-import {sized} from "@src/utils/Sizes";
-import React from "react";
+import {screenWidth, sized} from "@src/utils/Sizes";
+import React, {memo} from "react";
 import {Image, Pressable, View} from "react-native";
 
 interface ICardProps {
@@ -10,13 +10,18 @@ interface ICardProps {
   onPress?: () => void;
   dataNowPlaying?: INowPlaying;
   dataPopuler?: INowPlaying;
+  movies?: INowPlaying;
 }
 const CardItem: React.FC<ICardProps> = ({
   type,
   onPress,
   dataNowPlaying,
   dataPopuler,
+  movies,
 }) => {
+  const cardWidth = screenWidth / 3 - 13; // perhitungan width menyesuaikan
+  const cardHeight = screenWidth * 0.94 * (1 / 2);
+
   return (
     <>
       {type === "cardShowing" && (
@@ -25,6 +30,7 @@ const CardItem: React.FC<ICardProps> = ({
             borderRadius: 8,
             overflow: "hidden",
             width: sized(143),
+            height: 350,
           }}
         >
           <Pressable onPress={onPress}>
@@ -32,7 +38,7 @@ const CardItem: React.FC<ICardProps> = ({
               style={{
                 width: "100%",
                 height: 283,
-                resizeMode: "cover",
+                borderRadius: 8,
               }}
               source={{
                 uri: `${process.env.IMAGE_BASE_URL}/${dataNowPlaying?.backdrop_path}`,
@@ -42,7 +48,7 @@ const CardItem: React.FC<ICardProps> = ({
             <TextCustom
               fontSize={14}
               fontWeight={fontsApp.bold}
-              style={{marginTop: 14}}
+              style={{marginTop: 5}}
               value={dataNowPlaying?.title}
               numberOfLines={2}
             />
@@ -80,7 +86,7 @@ const CardItem: React.FC<ICardProps> = ({
             <TextCustom
               fontSize={14}
               fontWeight={fontsApp.bold}
-              value={"Venom Let ThereBe Carnage"}
+              value={dataPopuler?.title}
               numberOfLines={2}
             />
             <View
@@ -116,8 +122,53 @@ const CardItem: React.FC<ICardProps> = ({
           </View>
         </View>
       )}
+
+      {type === "movies" && (
+        <View
+          style={{
+            borderRadius: 8,
+            overflow: "hidden",
+            width: cardWidth,
+            height: cardHeight,
+          }}
+        >
+          <Pressable onPress={onPress}>
+            <Image
+              style={{
+                width: "100%",
+                height: 120,
+                resizeMode: "cover",
+              }}
+              source={{
+                uri: `${process.env.IMAGE_BASE_URL}/${movies?.backdrop_path}`,
+              }}
+            />
+
+            <TextCustom
+              fontSize={14}
+              fontWeight={fontsApp.bold}
+              style={{marginTop: 5}}
+              value={movies?.title}
+              numberOfLines={2}
+            />
+          </Pressable>
+          <View style={{flexDirection: "row", alignItems: "center", gap: 2}}>
+            <Icon
+              name="star"
+              size={16}
+              type={Icons.AntDesign}
+              color={COLORS.orange}
+            />
+            <TextCustom
+              value={`${movies?.vote_count}/${movies?.vote_average} IMDb`}
+              color={COLORS.textPrimary}
+              fontSize={12}
+            />
+          </View>
+        </View>
+      )}
     </>
   );
 };
 
-export default CardItem;
+export default memo(CardItem);

@@ -5,6 +5,8 @@ import HomeScreen from "@src/screens/Home";
 import {COLORS, fontsApp} from "@src/theme";
 import {View} from "react-native";
 import {RootTabParamList} from "./types";
+import FavoriteScreen from "@src/screens/Favorite";
+import MovieScreen from "@src/screens/Movies";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -59,8 +61,8 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Movies" component={HomeScreen} />
-      <Tab.Screen name="Favorite" component={HomeScreen} />
+      <Tab.Screen name="Movies" component={MovieScreen} />
+      <Tab.Screen name="Favorite" component={FavoriteScreen} />
     </Tab.Navigator>
   );
 };

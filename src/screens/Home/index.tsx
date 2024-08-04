@@ -1,28 +1,38 @@
 import {Gap, TextCustom} from "@src/components/Atoms";
+import Icon, {Icons} from "@src/components/Atoms/Icon";
 import {Header} from "@src/components/Layouts";
 import {CardItem} from "@src/components/Moleculs";
+import {
+  SkeltonCardPlaying,
+  SkeltonCardPopiuler,
+} from "@src/components/Moleculs/SkeltonLoading";
+
 import {
   actionHomeNowPlaying,
   actionHomePopuler,
 } from "@src/libraries/home/home.function";
 import {StackProps} from "@src/navigation/types";
 
-import {COLORS, fontsApp} from "@src/theme";
-import {
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import {fontsApp} from "@src/theme";
+import {SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 
 const HomeScreen = ({navigation}: StackProps): JSX.Element => {
-  const {data} = actionHomeNowPlaying();
-  const {data: moviesPopuler} = actionHomePopuler();
+  const {data, isLoading: loadingPlaying} = actionHomeNowPlaying();
+  const {data: moviesPopuler, isLoading: loadingPopuler} = actionHomePopuler();
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Header />
+      <Header
+        screenTitile="Movies App"
+        rightIcon={
+          <Icon
+            onPress={() => navigation?.push("SearchMovieScreen")}
+            name="search"
+            type={Icons.Ionicons}
+            size={28}
+          />
+        }
+      />
 
       <Gap height={20} />
       <ScrollView>
@@ -32,21 +42,6 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
             fontSize={16}
             fontWeight={fontsApp.semiBold}
           />
-          <Pressable
-            style={{
-              paddingVertical: 8,
-              paddingHorizontal: 16,
-              borderRadius: 100,
-              borderWidth: 1,
-              borderColor: COLORS.border,
-            }}
-          >
-            <TextCustom
-              fontSize={10}
-              value={"Show more"}
-              color={COLORS.textGray}
-            />
-          </Pressable>
         </View>
 
         <View style={{marginTop: 16}}>
@@ -73,6 +68,7 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
                     dataNowPlaying={data}
                   />
                 ))}
+              {loadingPlaying && <SkeltonCardPlaying />}
             </View>
           </ScrollView>
         </View>
@@ -83,21 +79,6 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
             fontSize={16}
             fontWeight={fontsApp.semiBold}
           />
-          <Pressable
-            style={{
-              paddingVertical: 8,
-              paddingHorizontal: 16,
-              borderRadius: 100,
-              borderWidth: 1,
-              borderColor: COLORS.border,
-            }}
-          >
-            <TextCustom
-              fontSize={10}
-              value={"See more"}
-              color={COLORS.textGray}
-            />
-          </Pressable>
         </View>
 
         <View
@@ -123,6 +104,8 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
                 }
               />
             ))}
+
+          {loadingPopuler && <SkeltonCardPopiuler />}
         </View>
       </ScrollView>
     </SafeAreaView>
