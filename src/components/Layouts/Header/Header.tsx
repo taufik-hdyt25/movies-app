@@ -29,6 +29,7 @@ const Header: React.FC<IHeaderProps> = ({
         value={screenTitile}
         fontSize={18}
         fontWeight={fontsApp.semiBold}
+        color={COLORS.textPrimary}
       />
       {rightIcon}
     </View>

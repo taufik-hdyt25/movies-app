@@ -13,7 +13,7 @@ import {
 } from "@src/libraries/home/home.function";
 import {StackProps} from "@src/navigation/types";
 
-import {fontsApp} from "@src/theme";
+import {COLORS, fontsApp} from "@src/theme";
 import {SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 
 const HomeScreen = ({navigation}: StackProps): JSX.Element => {
@@ -30,6 +30,7 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
             name="search"
             type={Icons.Ionicons}
             size={28}
+            color={COLORS.textPrimary}
           />
         }
       />
@@ -41,6 +42,7 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
             value={"Now Showing"}
             fontSize={16}
             fontWeight={fontsApp.semiBold}
+            color={COLORS.textPrimary}
           />
         </View>
 
@@ -78,6 +80,7 @@ const HomeScreen = ({navigation}: StackProps): JSX.Element => {
             value={"Popular"}
             fontSize={16}
             fontWeight={fontsApp.semiBold}
+            color={COLORS.textPrimary}
           />
         </View>
 

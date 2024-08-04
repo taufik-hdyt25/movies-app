@@ -1,6 +1,7 @@
 import Icon, {Icons} from "@src/components/Atoms/Icon";
 import {Header} from "@src/components/Layouts";
 import {CardItem} from "@src/components/Moleculs";
+import {getMovies} from "@src/libraries/movies/movies.api";
 import {actionMovies} from "@src/libraries/movies/movies.function";
 import {IResponseMovies} from "@src/libraries/movies/movies.types";
 import {StackProps} from "@src/navigation/types";
@@ -12,34 +13,44 @@ const MovieScreen = ({navigation}: StackProps) => {
   const [page, setPage] = useState<number>(1);
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [isRefreshing, setRefreshing] = useState(false);
-  const {data, isLoading, refetch} = actionMovies(page);
-  const [dataResult, setDataResult] = useState<IResponseMovies>({
-    page: 1,
-    results: data?.results,
-    total_pages: 0,
-    total_results: 0,
-  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<any>(null);
+  // const {data, isLoading, refetch} = actionMovies(1);
+
+  const getMovie = async () => {
+    try {
+      const response = await getMovies(1);
+      setData(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const getMovies = () => {
-      setDataResult((prev: IResponseMovies) => ({
-        ...data,
-        results: [...prev?.results, ...data?.results],
-      }));
+    getMovie();
+  }, []);
+
+  const handleLoadMore = async () => {
+    try {
+      setLoadingMore(true);
+      setPage(page + 1);
+      const response = await getMovies(page);
+      setData({
+        page: response?.page,
+        results: [...data?.results, ...response?.results],
+        total_pages: response?.total_pages,
+        total_results: response?.total_results,
+      });
       setLoadingMore(false);
-    };
-
-    getMovies();
-  }, [page]);
-
-  const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
-    setLoadingMore(true);
+    } catch (error) {
+      console.log(error);
+      setLoadingMore(false);
+    }
   };
 
   const handleRefresh = () => {
     setRefreshing(true);
-    refetch();
+    getMovie();
     setRefreshing(false);
   };
   return (
@@ -52,6 +63,7 @@ const MovieScreen = ({navigation}: StackProps) => {
             name="search"
             type={Icons.Ionicons}
             size={28}
+            color={COLORS.textPrimary}
           />
         }
       />
@@ -63,7 +75,7 @@ const MovieScreen = ({navigation}: StackProps) => {
         />
       ) : (
         <FlatList
-          data={dataResult?.results}
+          data={data?.results}
           numColumns={3}
           keyExtractor={(item, idx) => idx.toString() + "movies"}
           contentContainerStyle={{gap: 10}}
@@ -87,9 +99,9 @@ const MovieScreen = ({navigation}: StackProps) => {
           )}
           ListFooterComponent={
             loadingMore ? (
-              <View style={{height: 10}} />
-            ) : (
               <ActivityIndicator color={COLORS.gray} />
+            ) : (
+              <View style={{height: 10}} />
             )
           }
           ListHeaderComponent={<View style={{height: 10}} />}

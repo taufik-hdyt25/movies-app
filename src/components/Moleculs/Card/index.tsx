@@ -51,6 +51,7 @@ const CardItem: React.FC<ICardProps> = ({
               style={{marginTop: 5}}
               value={dataNowPlaying?.title}
               numberOfLines={2}
+              color={COLORS.textPrimary}
             />
           </Pressable>
           <View style={{flexDirection: "row", alignItems: "center", gap: 2}}>
@@ -88,6 +89,7 @@ const CardItem: React.FC<ICardProps> = ({
               fontWeight={fontsApp.bold}
               value={dataPopuler?.title}
               numberOfLines={2}
+              color={COLORS.textPrimary}
             />
             <View
               style={{
@@ -149,6 +151,7 @@ const CardItem: React.FC<ICardProps> = ({
               fontWeight={fontsApp.bold}
               style={{marginTop: 5}}
               value={movies?.title}
+              color={COLORS.textPrimary}
               numberOfLines={2}
             />
           </Pressable>

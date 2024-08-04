@@ -81,11 +81,13 @@ const DetailMovieScreen = ({navigation, route}: StackProps): JSX.Element => {
                 value={data?.title}
                 fontSize={20}
                 fontWeight={fontsApp.bold}
+                color={COLORS.textPrimary}
               />
               <Icon
                 type={Icons.Fontisto}
                 name="favorite"
                 onPress={() => handleAddFavorite(data?.id)}
+                color={COLORS.textPrimary}
               />
             </View>
 
@@ -163,6 +165,7 @@ const DetailMovieScreen = ({navigation, route}: StackProps): JSX.Element => {
                 fontSize={16}
                 fontWeight={fontsApp.bold}
                 value={"Description"}
+                color={COLORS.textPrimary}
               />
               <TextCustom
                 style={{marginTop: 8}}
@@ -177,6 +180,7 @@ const DetailMovieScreen = ({navigation, route}: StackProps): JSX.Element => {
                 value={"Production Company"}
                 fontSize={16}
                 fontWeight={fontsApp.bold}
+                color={COLORS.textPrimary}
               />
 
               <View style={{gap: 5, paddingTop: 10}}>
@@ -202,7 +206,10 @@ const DetailMovieScreen = ({navigation, route}: StackProps): JSX.Element => {
                         />
                       )}
                       <Gap height={6} />
-                      <TextCustom value={item?.name} />
+                      <TextCustom
+                        value={item?.name}
+                        color={COLORS.textPrimary}
+                      />
                     </View>
                   )
                 )}
@@ -233,7 +240,12 @@ const DescriptionDetail = ({label, value}: IDetailProps) => {
   return (
     <View>
       <TextCustom value={label} fontSize={12} color={COLORS.textGray} />
-      <TextCustom value={value} fontWeight={fontsApp.semiBold} fontSize={12} />
+      <TextCustom
+        color={COLORS.textPrimary}
+        value={value}
+        fontWeight={fontsApp.semiBold}
+        fontSize={12}
+      />
     </View>
   );
 };
