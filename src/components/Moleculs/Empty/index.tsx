@@ -6,13 +6,7 @@ import {View} from "react-native";
 
 const EmptyNotFound = () => {
   return (
-    <View
-      style={{
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <View>
       <View style={{flexDirection: "row", alignItems: "center", columnGap: 10}}>
         <Icon name="file-movie-o" type={Icons.FontAwesome} size={34} />
         <TextCustom

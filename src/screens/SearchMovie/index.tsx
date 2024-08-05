@@ -9,24 +9,27 @@ import {StackProps} from "@src/navigation/types";
 import {COLORS, fontsApp} from "../../theme";
 import {Input} from "@ui-kitten/components";
 import {useState} from "react";
-import {ScrollView, View} from "react-native";
+import {FlatList, ScrollView, View} from "react-native";
+import {screenHeight} from "@src/utils/Sizes";
+import {Dimensions} from "react-native";
 
 const SearchMovieScreen = ({navigation, route}: StackProps) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const debounceSearch = useDebounce(searchTerm, 1000);
 
-  const {data, refetch, isLoading} = actionSearchMovie(debounceSearch);
+  const {data, refetch, isLoading, isFetchedAfterMount} =
+    actionSearchMovie(debounceSearch);
 
   useFocusEffect(() => {
     refetch();
   });
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{height: "100%"}}>
       <View
         style={{
           paddingHorizontal: 15,
-          paddingVertical: 15,
+          paddingTop: 10,
           flexDirection: "row",
           alignItems: "center",
           columnGap: 10,
@@ -57,25 +60,46 @@ const SearchMovieScreen = ({navigation, route}: StackProps) => {
         <Icon name="search" type={Icons.Ionicons} />
       </View>
 
-      <ScrollView>
-        <View style={{gap: 10, paddingHorizontal: 10, marginBottom: 10}}>
-          {data?.results?.map((data: INowPlaying, idx: number) => (
+      {!isLoading ? (
+        <FlatList
+          data={data?.results ?? []}
+          keyExtractor={(item, index) => index.toString() + "movies"}
+          contentContainerStyle={{
+            gap: 10,
+            paddingVertical: 10,
+            flex: data?.results?.length ? 0 : 1,
+          }}
+          style={{
+            paddingHorizontal: 15,
+          }}
+          ListEmptyComponent={
+            debounceSearch && isFetchedAfterMount ? (
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                }}
+              >
+                <EmptyNotFound />
+              </View>
+            ) : null
+          }
+          renderItem={({item, index}) => (
             <CardItem
-              key={idx.toString() + "search"}
               type="cardPopuler"
-              dataPopuler={data}
+              dataPopuler={item}
               onPress={() => {
                 navigation?.push("DetailMovieScreen", {
-                  id: String(data?.id),
+                  id: String(item?.id),
                 });
               }}
             />
-          ))}
-        </View>
-      </ScrollView>
-
-      {debounceSearch && !data?.results?.length && <EmptyNotFound />}
-      {isLoading && <SkeltonCardPopiuler />}
+          )}
+        />
+      ) : (
+        <SkeltonCardPopiuler />
+      )}
     </View>
   );
 };
