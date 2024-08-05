@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {useTheme} from "@src/theme/ThemeProvider";
+import {useTheme} from "../../../theme/ThemeProvider";
 import {sized} from "@src/utils/Sizes";
 import React from "react";
 import {StyleProp, TouchableOpacity, ViewStyle} from "react-native";

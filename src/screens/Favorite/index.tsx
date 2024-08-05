@@ -1,5 +1,4 @@
 import {useFocusEffect} from "@react-navigation/native";
-import {TextCustom} from "@src/components/Atoms";
 import {Header} from "@src/components/Layouts";
 import {CardItem} from "@src/components/Moleculs";
 import {SkeltonCardPopiuler} from "@src/components/Moleculs/SkeltonLoading";
@@ -14,7 +13,7 @@ const FavoriteScreen = () => {
   });
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Header screenTitile="Movie Favorite" />
       <ScrollView>
         <View style={{padding: 15, gap: 10}}>

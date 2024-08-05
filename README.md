@@ -1,6 +1,6 @@
 untuk menjalankan
 
-ketika sudah di clone jalankan
+ketika sudah di clone lalu jalankan perintah
 
 1. yarn install
 2. yarn start

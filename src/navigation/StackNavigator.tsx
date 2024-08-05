@@ -1,10 +1,10 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import DetailMovieScreen from "@src/screens/DetailMovie";
-import SearchMovieScreen from "@src/screens/SearchMovie";
-import {COLORS} from "@src/theme";
-import {useTheme} from "@src/theme/ThemeProvider";
 import TabNavigator from "./TabNavigator";
 import {RootStackParamList} from "./types";
+import DetailMovieScreen from "@src/screens/DetailMovie";
+import SearchMovieScreen from "@src/screens/SearchMovie";
+import {useTheme} from "@src/theme/ThemeProvider";
+import {COLORS} from "@src/theme";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const StackNavigator = () => {
@@ -15,7 +15,8 @@ const StackNavigator = () => {
       initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
-        statusBarColor: colors.background,
+        statusBarColor: COLORS.white,
+        statusBarStyle: "dark",
         statusBarAnimation: "fade",
         contentStyle: {
           backgroundColor: COLORS.white,

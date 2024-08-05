@@ -1,10 +1,10 @@
-import {Gap, TextCustom} from "@src/components/Atoms";
-import Icon, {Icons} from "@src/components/Atoms/Icon";
-import {SkeltonDetailMovie} from "@src/components/Moleculs/SkeltonLoading";
-import {actionDetailMovie} from "@src/libraries/detail/detail.function";
-import {actionPostFavoritelMovie} from "@src/libraries/favorite/favorite.function";
-import {StackProps} from "@src/navigation/types";
-import {COLORS, fontsApp} from "@src/theme";
+import {Gap, TextCustom} from "../../components/Atoms";
+import Icon, {Icons} from "../../components/Atoms/Icon";
+import {SkeltonDetailMovie} from "../../components/Moleculs/SkeltonLoading";
+import {actionDetailMovie} from "../../libraries/detail/detail.function";
+import {actionPostFavoritelMovie} from "../../libraries/favorite/favorite.function";
+import {StackProps} from "../../navigation/types";
+import {COLORS, fontsApp} from "../../theme";
 import {
   Image,
   ImageBackground,

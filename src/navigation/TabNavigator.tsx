@@ -1,12 +1,12 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {TextCustom} from "@src/components/Atoms";
+import {RootTabParamList} from "./types";
 import Icon, {Icons} from "@src/components/Atoms/Icon";
-import HomeScreen from "@src/screens/Home";
+import {TextCustom} from "@src/components/Atoms";
 import {COLORS, fontsApp} from "@src/theme";
 import {View} from "react-native";
-import {RootTabParamList} from "./types";
-import FavoriteScreen from "@src/screens/Favorite";
+import HomeScreen from "@src/screens/Home";
 import MovieScreen from "@src/screens/Movies";
+import FavoriteScreen from "@src/screens/Favorite";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 

@@ -1,15 +1,15 @@
 import {useFocusEffect} from "@react-navigation/native";
-import Icon, {Icons} from "@src/components/Atoms/Icon";
-import {CardItem} from "@src/components/Moleculs";
-import EmptyNotFound from "@src/components/Moleculs/Empty";
-import {SkeltonCardPopiuler} from "@src/components/Moleculs/SkeltonLoading";
-import useDebounce from "@src/hooks/useDebounce";
-import {actionSearchMovie} from "@src/libraries/search/search.function";
+import Icon, {Icons} from "../../components/Atoms/Icon";
+import {CardItem} from "../../components/Moleculs";
+import EmptyNotFound from "../../components/Moleculs/Empty";
+import {SkeltonCardPopiuler} from "../../components/Moleculs/SkeltonLoading";
+import useDebounce from "../../hooks/useDebounce";
+import {actionSearchMovie} from "../../libraries/search/search.function";
 import {StackProps} from "@src/navigation/types";
-import {COLORS, fontsApp} from "@src/theme";
+import {COLORS, fontsApp} from "../../theme";
 import {Input} from "@ui-kitten/components";
 import {useState} from "react";
-import {ActivityIndicator, ScrollView, View} from "react-native";
+import {ScrollView, View} from "react-native";
 
 const SearchMovieScreen = ({navigation, route}: StackProps) => {
   const [searchTerm, setSearchTerm] = useState<string>("");

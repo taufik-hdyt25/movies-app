@@ -17,7 +17,8 @@ import {COLORS, fontsApp} from "@src/theme";
 import {SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 
 const HomeScreen = ({navigation}: StackProps): JSX.Element => {
-  const {data, isLoading: loadingPlaying} = actionHomeNowPlaying();
+  const {data, isLoading: loadingPlaying, error} = actionHomeNowPlaying();
+
   const {data: moviesPopuler, isLoading: loadingPopuler} = actionHomePopuler();
 
   return (
